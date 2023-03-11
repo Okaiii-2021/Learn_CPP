@@ -1,0 +1,4 @@
+# ignore file belong to vscode config
+
+.vscode/
+*/.vscode/
