@@ -1,4 +1,7 @@
 # ignore file belong to vscode config
-
 .vscode/
 */.vscode/
+*/tempCodeRunnerFile.cpp
+
+# ignore file.o
+*/*.o
