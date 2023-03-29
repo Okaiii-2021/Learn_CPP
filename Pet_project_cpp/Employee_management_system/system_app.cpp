@@ -14,7 +14,7 @@ bool ManagementApp::addRecord()
     cout << "Enter age: ";
     cin  >> newEmployee.age;
 
-    cout << "Enter Gender <1. Male  0.Female> :";
+    cout << "Enter Gender <0. Female  1.Male> :";
     cin  >> gender;
     switch (gender)
     {
@@ -29,21 +29,21 @@ bool ManagementApp::addRecord()
             return false;
     }
 
-    cout << "Enter Position <1. Manager  2. IT  3.HR  4. Guard> :";
+    cout << "Enter Position <0. Manager  1. IT  2.HR  3. Guard> :";
     cin  >> position;
 
     switch (position)
     {
-        case 1:
+        case 0:
             newEmployee.position = Position::Manager;
             break;
-        case 2:
+        case 1:
             newEmployee.position = Position::IT;
             break;
-        case 3:
+        case 2:
             newEmployee.position = Position::HR;
             break;
-        case 4:
+        case 3:
             newEmployee.position = Position::Guard;
             break;
         default:
@@ -61,9 +61,11 @@ bool ManagementApp::addRecord()
 bool ManagementApp::viewRecord()
 {
     int ID;
+    string gender[] = {"Male", "Female"};
+    string position[] = {"Manager", "IT", "HR", "Guard"};
 
     cout << "===== Looking for Employee according to ID =====\n";
-    cout << "Enter ID number\n";
+    cout << "Enter ID number: 1\n";
     cin  >> ID;
 
     for (int temp = 0; temp < employees.size(); temp++)
@@ -74,8 +76,8 @@ bool ManagementApp::viewRecord()
             cout << "Name: " << employees[temp].name << endl;
             cout << "Age: " << employees[temp].age << endl;
             // cout << "Gender: " << static_cast<std::underlying_type_t<Gender>>(employees[temp].gender) << endl;
-            cout << "Gender: " << static_cast<int>(employees[temp].gender) << endl;
-            cout << "Position: " << static_cast<std::underlying_type_t<Position>>(employees[temp].position) << endl;
+            cout << "Gender: " << gender[static_cast<int>(employees[temp].gender)] << endl;
+            cout << "Position: " << position[static_cast<std::underlying_type_t<Position>>(employees[temp].position)] << endl;
             cout << "Salary: " << employees[temp].salary << endl;
             return true;
         }
