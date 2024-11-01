@@ -12,6 +12,7 @@
 #include <netinet/in.h>
 #include <cstring>
 #include <algorithm>  // Add this to the includes
+#include <fcntl.h>
 
 #include "thread_pool.cpp"
 // Currently support 1 severver and multiple clients
@@ -23,6 +24,7 @@ class Server
     private:
         int serverSocket;
         std::vector<int> clientSocketList;
+        std::vector<int> notProcesstList;
         std::mutex muSocetList;
         std::condition_variable condServer;
         bool shoudlTerminate;
@@ -60,7 +62,7 @@ class Server
         void checkConnection();
         void handleClient(int clientSocket);
         void assignTask();
-        void broadcastMsg(std::string strClientMsg);
+        void broadcastMsg(std::string strClientMsg, int currentclientSocket);
 };
 
 #endif // SERVER_H

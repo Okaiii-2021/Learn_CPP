@@ -5,3 +5,4 @@
 
 # ignore file.o
 */*.o
+*/*.exe

@@ -36,7 +36,7 @@ void ThreadPool::ThreadFunc(int thread_id)
     {
         std::function<void()> job;
         std::unique_lock<std::mutex> lock(mu);
-        std::cout << "thread_num: " << thread_id << " is working" << std::endl;
+        // std::cout << "thread_num: " << thread_id << " is working" << std::endl;
         cond.wait(lock, [this] {return !job_queue.empty() || shoudlTerminate;});
         if(shoudlTerminate)
         {
@@ -49,9 +49,32 @@ void ThreadPool::ThreadFunc(int thread_id)
         }
         lock.unlock();  // Unlock the mutex before executing the job
         job();  // Execute the job
-        std::cout << "thread_id: " << thread_id << " done the jobbb!!!" << std::endl;
+        // std::cout << "thread_id: " << thread_id << " done the jobbb!!!" << std::endl;
     }
 };
+
+// void ThreadPool::ThreadFunc(int thread_id, bool )
+// {
+//     while(true)
+//     {
+//         std::function<void()> job;
+//         std::unique_lock<std::mutex> lock(mu);
+//         std::cout << "thread_num: " << thread_id << " is working" << std::endl;
+//         cond.wait(lock, [this] {return !job_queue.empty() || shoudlTerminate;});
+//         if(shoudlTerminate)
+//         {
+//             return;
+//         }
+//         else if(!job_queue.empty())
+//         {
+//             job = job_queue.front();
+//             job_queue.pop();
+//         }
+//         lock.unlock();  // Unlock the mutex before executing the job
+//         job();  // Execute the job
+//         std::cout << "thread_id: " << thread_id << " done the jobbb!!!" << std::endl;
+//     }
+// };
 
 void ThreadPool::Start(int thread_num)
 {
@@ -76,7 +99,7 @@ bool ThreadPool::IsBusy()
         res = !job_queue.empty();
     }
 
-    std::cout << "res: " << res << "\n";
+    // std::cout << "res: " << res << "\n";
 
     return res;
 };
@@ -91,19 +114,9 @@ void ThreadPool::Stop()
 
     for(auto i = 0; i < threads.size(); i++)
     {
-        std::cout << "end the stopppp";
         threads[i].join();
-        std::cout << "end the stopppp";
     }
     threads.clear();
-    std::cout << "end the stopppp";
-}
-
-void print_number(int num)
-{
-    sleep(1);
-    // std::unique_lock<std::mutex> lock(mu_log);
-    std::cout << "print number: " << num << std::endl;
 }
 
 // int main()
